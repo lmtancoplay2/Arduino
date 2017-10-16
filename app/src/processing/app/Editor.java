@@ -242,6 +242,7 @@ public class Editor extends JFrame implements RunnerListener {
             watcher = null;
           }
           base.handleActivated(Editor.this);
+          getTabs().forEach(tab -> tab.reload());
         }
 
         // added for 1.0.5
@@ -1723,6 +1724,9 @@ public class Editor extends JFrame implements RunnerListener {
   public synchronized void removeTab(SketchFile file) throws IOException {
     int index = findTabIndex(file);
     tabs.remove(index);
+    if (index == currentTabIndex) {
+      currentTabIndex = currentTabIndex -1;
+    }
   }
 
   // . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
