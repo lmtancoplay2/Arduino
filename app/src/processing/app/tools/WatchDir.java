@@ -144,27 +144,27 @@ public class WatchDir {
 
                 // reload the tab content
                 if (kind == ENTRY_CREATE) {
-					try {
-						String filename = name.toString();
-						FileUtils.SplitFile split = FileUtils.splitFilename(filename);
-						if (Sketch.EXTENSIONS.contains(split.extension.toLowerCase())) {
-							SketchFile sketch = editor.getSketch().addFile(filename);
-							editor.addTab(sketch, null);
-						}
-					} catch (IOException e) {}
+                  try {
+                    String filename = name.toString();
+                    FileUtils.SplitFile split = FileUtils.splitFilename(filename);
+                    if (Sketch.EXTENSIONS.contains(split.extension.toLowerCase())) {
+                      SketchFile sketch = editor.getSketch().addFile(filename);
+                      editor.addTab(sketch, null);
+                    }
+                  } catch (IOException e) {}
                 } else if (kind == ENTRY_DELETE) {
-					List<EditorTab> tabs = editor.getTabs();
-					Iterator<EditorTab> iter = tabs.iterator();
-					while (iter.hasNext()) {
-						EditorTab tab = iter.next();
-						if (name.getFileName().toString().equals(tab.getSketchFile().getFileName())) {
-							try {
-								editor.removeTab(tab.getSketchFile());
-							} catch (IOException e) {}
-						}
-					}
-				}
-				editor.getTabs().forEach(tab -> tab.reload());
+                  List<EditorTab> tabs = editor.getTabs();
+                  Iterator<EditorTab> iter = tabs.iterator();
+                  while (iter.hasNext()) {
+                    EditorTab tab = iter.next();
+                    if (name.getFileName().toString().equals(tab.getSketchFile().getFileName())) {
+                      try {
+                        editor.removeTab(tab.getSketchFile());
+                      } catch (IOException e) {}
+                    }
+                  }
+                }
+                editor.getTabs().forEach(tab -> tab.reload());
 
                 // if directory is created, and watching recursively, then
                 // register it and its sub-directories
